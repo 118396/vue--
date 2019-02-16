@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+</head>
+
+<body>
+    <div id="demo">
+        购物车总价： {{prices}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var app2 =new Vue({
+            el:"#aaa",
+            data:{
+                msg:'我是app2里面的内容'
+            }
+        })
+        //需求：计算购物车中所以物品的价格
+        var app = new Vue({
+            el: "#demo",
+            data: {
+                // 第一个购物车
+                package1: [{
+                        name: 'iphone',
+                        price: 7000,
+                        count: 2
+                    },
+                    {
+                        name: 'ipad',
+                        price: 3000,
+                        count: 1
+                    }
+                ],
+                // 第二个购物车
+                package2: [{
+                        name: 'iphone',
+                        price: 7000,
+                        count: 3
+                    },
+                    {
+                        name: 'ipad',
+                        price: 3000,
+                        count: 4
+                    }
+                ]
+            },
+            //计算属性
+            computed: {
+                prices:function(){
+                    var prices = 0;
+                    //遍历购物车中的对象
+                    for (var i = 0; i < this.package1.length; i++) {
+                        //循环相加
+                        prices += this.package1[i].price * this.package1[i].count;
+                    }
+                    for (var j = 0; j < this.package2.length; j++) {
+                        prices += this.package2[j].price * this.package2[j].count;
+                    }
+                    //计算属性可以依赖多个Vue实例数据
+                    return prices+'-----'+app2.msg
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

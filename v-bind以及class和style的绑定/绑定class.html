@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .divstyle{
+            background-color: darkblue;
+            width: 100px;
+            height: 100px;
+        }
+        .borderstyle{
+            border:10px solid red;
+        }
+        .btnBackground{
+           background-color: red; 
+        }
+       .active{
+        background-color: gold;
+            width: 100px;
+            height: 100px;
+       }
+       .error{
+        border:10px solid darkmagenta;
+            
+       }
+    </style>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    绑定 class:<br>
+    <div id="App">
+        <hr>
+        绑定class对象语法，对象的键是类名，值是布尔值 <br>
+        <div :class="{divstyle : isActive,borderstyle:isborder}"> </div>
+        <!-- div是否存在类名 divstyle 取决于 isActive 的布尔值 -->
+        <hr>
+        <input type="button" value="点击我切换背景" :class={btnBackground:isback} v-on:click="changeColor">
+        <div :class="classnames"></div> 计算属性
+        <hr>
+        绑定 class 数组语法 ：数组中的成员直接对应类名 <br>
+        <div :class="[activeClass,errorClass]">数组绑定class</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <script>
+        // 需求：点击一个按钮，来回切换背景
+        var App =new Vue ({
+            el:"#App",
+            data:{
+                isActive:true,
+                isborder:true,
+                isback:true,
+                activeClass:'active',
+                errorClass:'error'
+                },
+                computed: {
+                    classnames:function(){
+                        return{
+                            active : this.isActive && !this.isActive
+                        }
+                    }
+                },
+                methods: {
+                    changeColor:function(){
+                        this.isback= !this.isback
+                    }
+                },
+        })
+    </script>
+</body>
+</html>

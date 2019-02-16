@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        
+    </style>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    绑定 内联样式:键代表style的属性值，值代表属性对应的值了<br>
+    切记： Vue只有是大写字母，都会转化成 -加小写 <br>
+    fontSize  转化为 font-size
+    dsfASDqhg 转化为  dsf-a-s-d-qhg <br>
+    <!-- 两种写法 ： font-size   fontSize -->
+    <div id="App">
+        <div v-bind:style = "{'color':color,'fontSize':fontSize+'px'}">
+            看效果
+        </div>
+        <br>
+        style数组语法： <br>
+        <div :style="[styleA,styleB]">
+            看看我
+        </div>
+        <div></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <script>
+        
+        var App =new Vue ({
+            el:"#App",
+            data:{
+                color:'red',
+                fontSize:'20',
+                styleA:{
+                    color:'blue',
+                    fontSize:'18'
+                },
+                styleB:{
+                    color:'red',
+                    fontSize:'18'
+                }
+                }
+        })
+    </script>
+</body>
+</html>

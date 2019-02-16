@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .divStyle{
+            background-color: darkred;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    v-bind作用是:绑定活动属性 <br>
+    <div id="App">
+        <hr>
+        绑定class 对象语法：对象的键是类名，值是布尔值 <br>
+        <div v-bind:class="{divStyle : isActive}"></div>
+        <!-- div的class有不有这个divStyle类名取决于 isActive 的布尔值 -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <script>
+        var App =new Vue ({
+            el:"#App",
+            data:{
+                isActive:true
+                }
+        })
+    </script>
+</body>
+</html>

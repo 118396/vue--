@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 文本插值的用法  -->
+        <hr>
+        {{msg}} <hr>
+        {{7 + 7*4}} --------可以进行简单的运算 <hr>
+        {{6 > 3 ? msg :a}} --三元运算符 <hr>
+        {{if(6 > 3)}}-------注意（报编译错误）文本插值的形式，其中不能书写表达式 <hr>
+        {{var a=6}}  ------- var a= 6 是多行表达式 --var a ; a=6
+        
+    </div>
+
+    <!-- 环境搭建 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            //element 用于指定页面中已经存在的 DOM元素，挂载到DOM中
+            el: '#app',
+
+            //可以声明应用内需要双向绑定的数据
+            data: {
+                msg: '你好',
+                a:1
+            },
+            created:function(){
+                // alert('我是vue实例，创建完成，还未挂载到DOM')
+            },
+            mounted:function(){
+                // alert('我是vue实例，已挂载到DOM')
+            }
+        });
+        
+    </script>
+</body>
+
+</html>
