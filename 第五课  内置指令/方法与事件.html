@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> 方法与事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="App">
+        点击次数： {{count}}
+         <!-- 不传参数在方法后面可以不加（） -->
+        <!-- <button @click="handle">点击每次加1</button> -->
+        <button @click="handle(3)">点击每次加3</button> 
+        <!-- 传参数加括号，避免出问题 -->
+
+    </div>
+    <script>
+        var App = new Vue({
+            el: '#App',
+            data: {
+                count: 0
+            },
+            methods: {
+                handle: function (count) {
+                    count = count || 1 //如果传了参数 count 就用传的 count 值；没有传就默认 count为 1 。或运算 
+                    this.count += count // 加上一个 count
+                }
+            },
+            // methods: {
+            //     handle: function () {
+            //         this.count += 1// 加1
+            //     }
+            // },
+        })
+
+    </script>
+</body>
+
+</html>

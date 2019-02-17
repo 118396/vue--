@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染指令</title>
+</head>
+
+<body>
+    <div id="App">
+        v-if后面接的是等于号，等于后的内容必须是布尔值
+        <br>
+         v-if 的基本用法:
+        <p v-if="5 < 2">{{apple}}</p>
+        <!-- 判断5<2 是否为 true | false 不渲染  -->
+        <p v-else-if="7>3">{{pineapple}}</p>
+        <!-- //判断 7>3 是否为 true |true 渲染 凤梨 -->
+        <p v-else>{{banana}}</p>
+
+        <hr>
+         v-if 的实例：对不想让其复用的标签或者元素，加入 key 即可
+         需求:点击按钮，实现用户名输入框和密码框的切换
+        <div v-if="type === 'name'">
+            <!-- type = name 为true ,渲染用户名 -->
+            用户名：
+            <input type="text" placeholder="请输入用户名" key="name">
+        </div>
+        <div v-else>
+            密码：
+            <input type="text" placeholder="请输入密码" key="password">
+        </div>
+        <button v-on:click="toggleType">切换</button>
+
+        <hr>
+        v-show用法：显现与否取决于布尔值
+        <p v-show = "9>a">被渲染</p>
+        <hr>
+        v-if 与 v-show 的比较
+        v-if : 实时渲染，DOM页面显示就渲染，不显示，就不渲染。
+        v-show: v-show的元素永远存在于DOM页面中，只是改变了css  的 display 的属性。
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        var App = new Vue({
+            el: "#App",
+            data: {
+                apple: '苹果',
+                banana: '香蕉',
+                pineapple: '凤梨',
+                type: 'name',  //初始值
+                a:5,
+            },
+            methods: {
+                toggleType: function () {
+                    //三目运算符
+                    this.type = (this.type === 'name' ? 'password' : 'name')
+                    //点击之后如果 this.typr = name 就将password 赋值给type，反之this.type ≠ name ,将 name 赋给 type
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
