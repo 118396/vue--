@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>基本用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="App" style="margin-bottom: 300px">
+        v-model的用法：可以用于input框，以及textarea等
+        <br> 注意： 所显示的值只依赖于所绑定的数据，不再关心初始化时的插入的value
+        <br>
+        <input type="text" v-model="value">
+        <br> {{value}}
+        <br>
+        <textarea name="" id="" cols="30" rows="3" v-model="msg">
+            我是多行文本的初始化值
+        </textarea>
+        <br> {{msg}}
+        <hr> 单选框:
+        <br>
+        单个单选框---用v-bind:<input type="radio" v-bind:checked="oneRadio"><br>
+        单个单选框---用v-model:<input type="radio" v-model="oneRadio">
+        单个单选框--用 v-model不生效
+
+        <br> 多个单选框：<br>
+        鸡蛋<input type="radio" name="checks" value="鸡蛋" v-model="checkName"> <br>
+        鸭蛋<input type="radio" name="checks" value="鸭蛋" v-model="checkName"> <br>
+        皮蛋<input type="radio" name="checks" value="皮蛋" v-model="checkName"> <br>
+        现在选中的是 ：----{{checkName}} ， v-model绑定的是选中的单选框value值
+        <hr>
+        复选框：
+        单个复选框---用 v-bind： <input type="checkbox" v-bind:checked="oneRadio">
+        单个复选框---用 v-model： <input type="checkbox" v-model="oneRadio">
+        <br>--------------<br>
+        多个单选框：如果是组合使用，就需要v-model 来配合value使用，v-model绑定一个数组；如果绑定的是字符串，则会转化为true。false，与所有绑定的复选框的
+        checked属性相对应
+        <br>
+        鸡蛋<input type="checkbox" value="鸡蛋" v-model="checks">
+        鸭蛋<input type="checkbox" value="鸭蛋" v-model="checks">
+        皮蛋<input type="checkbox" value="皮蛋" v-model="checks">
+        <br>现在选中了{{checks}}
+        <br>------------------<br>
+        单选的下拉框：如果是单选，所绑定的value值初始化可以为数组，也可以为字符串，有value直接优
+        先匹配一个value值，没有value就匹配一个text值<br>
+        <select v-model="selected">
+            <option value="鸡蛋">鸡蛋</option>
+            <option value="皮蛋">皮蛋</option>
+            <option value="鸭蛋">鸭蛋</option>
+        </select>----------现在选中的是：{{selected}} <br>
+        多选的下拉框:<br>v­model绑定一个数组
+        <select v-model="selectedmul" multiple>
+            <option value="鸡蛋">鸡蛋</option>
+            <option value="皮蛋">皮蛋</option>
+            <option value="鸭蛋">鸭蛋</option>
+        </select>----------现在选中的是：{{selectedmul}} <br>
+        <hr style="color: aqua">
+        绑定值： <br>
+        单选按钮：
+        <input type="radio" v-model="picked" v-bind:value="value">--{{picked}}
+        <br>
+        复选框；---选中和不选中的value不一样<br>
+        <input type="checkbox" v-model="toggle" :true-value="value1" :false-value="value2">
+        <br>{{toggle}} <br>
+        {{toggle == value1 }} <br>
+        {{toggle == value2 }} <br>
+        <br>------------------<br>
+        下拉框： <select v-model="valueselect">
+            <option :value="{num:111}">鸡蛋</option>
+            <option value="皮蛋">皮蛋</option>
+            <option value="鸭蛋">鸭蛋</option>
+        </select>
+        {{typeof valueselect}} {{valueselect.num}}
+        <br>------------------<br>
+        修饰符：
+        lazy:v­model默认是在input输入时实时同步输入框的数据，而lazy修饰符，可以使其
+        在失去焦点或者敲回车键之后在更新
+        <input type="text" v-model='inputStr'>---{{inputStr}}
+        <input type="text" v-model.lazy='lazyStr'>---{{lazyStr}}
+        <br>
+        number:将输入的字符串转化为 number 类型
+        <input type="text" v-model.number="isnum"><br>
+        {{typeof isnum}}
+        <br>
+        trim:   自动过滤输入过程中收尾输入的空格
+        <input type="text" v-model.trim="trimstr"><br>
+        {{trimstr.split('').length}}
+    </div>
+    <script>
+        var App = new Vue({
+            el: '#App',
+            data: {
+                value: '',
+                msg: '',
+                oneRadio: true,
+                checkName: '鸡蛋', //checkName:'' ;如果初始值不想选中，给个空值
+                checks: [], //checks:'' true会同时被选中/false 会同时不选中；
+                selected: '', //selected:[],不管是字符串或者数组，最后都会渲染成字符串,绑定value值
+                selectedmul: [],
+                picked: '',
+                value: 'aaa',
+                toggle: true,
+                value1: '被选中',
+                value2: '没有选中',
+                valueselect: '',
+                inputStr: '',
+                lazyStr: '',
+                isnum:'',
+                trimstr:''
+
+            }
+        })
+    </script>
+</body>
+
+</html>
