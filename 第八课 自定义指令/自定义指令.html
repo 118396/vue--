@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        获取焦点：
+        <input type="text" v-focus>
+        <hr>
+        <div v-demo:lm.a.b="aaa"></div>
+    </div>
+    <script>
+        Vue.directive('focus', {
+            //指令的选项，插入到父节点的时候调用
+            inserted: function (el) {
+                el.focus();
+            }
+        })
+        Vue.directive('demo', {
+            bind: function (el, binding, vnode) {
+                var keys = [];
+                for(var key in vnode){
+                    keys.push(key)
+                }
+                el.innerHTML =
+                    'name' + '----------' + binding.name + '<br>' + //  demo
+                    'value' + '----------' + binding.value + '<br>' + //hello
+                    'expression' + '----------' + binding.expression + '<br>' + //aaa
+                    'argument' + '----------' + binding.arg + '<br>' + //lm
+                    'modifiers' +'------------ ' + JSON.stringify(binding.modifiers) + '<br>'+  //{"a":true,"b":true}
+                    'vnode' + '------------' + keys.join('--') 
+            }
+        })
+        var vue = new Vue({
+            el: '#app',
+            data: {
+                aaa: 'hello'
+            }
+        })
+    </script>
+</body>
+
+</html>
