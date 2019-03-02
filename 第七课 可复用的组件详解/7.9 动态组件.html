@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>作用域插值</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <component :is="thisView"></component>
+        <button @click="handView('A')">1</button>
+        <button @click="handView('B')">2</button>
+        <button @click="handView('C')">3</button>
+        <button @click="handView('D')">4</button>
+    </div>
+    <script>
+        //需求:通过点击不同的按钮切换不同的视图
+        Vue.component('compA', {
+            template: '<div>离离原上草</div>'
+        })
+        Vue.component('compB', {
+            template: '<div>一岁一枯荣</div>'
+        })
+        Vue.component('compC', {
+            template: '<div>野火烧不尽</div>'
+        })
+        Vue.component('compD', {
+            template: '<div>春风吹又生</div>'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                thisView :'compA'
+            },
+            methods: {
+                handView: function (tag) {
+                    this.thisView = 'comp' + tag
+                    console.log(this.thisView)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>组件编译的作用域</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <my-component v-show="ddd">
+            {{message}}
+        </my-component>
+    </div>
+    <script>
+        // 父组件模板的内容在父组件作用域内编译；
+        // 子组件模板的内容在子组件作用域内编译。
+        Vue.component('my-component', {
+            template: '<div >我是一个组件</div>',
+            data: function () {
+                return {
+                    message: '我是子组件的内容',
+                    ddd: true
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                ddd: true
+            },
+            methods: {
+
+
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

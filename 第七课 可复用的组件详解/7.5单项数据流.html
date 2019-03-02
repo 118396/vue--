@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>单项数据流</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    在这里定义的不管是方法，属性其作用域全是父组件
+    <div id="app">
+        <my-component msg="父组件传递的数据"></my-component>
+        <hr>
+        <!-- 需求：通过input中输入的数据直接改变div 的宽度 -->
+        <input type="text" v-model="height">
+        <height-component :height="height"></height-component>
+    </div>
+    <script>
+        //将传递进来的数据作为初始值保存
+        //注册组件
+        Vue.component('my-component', {
+            props: ['msg'],
+            template: '<div>{{count}}</div>',   // 在这里定义的其作用域是子组件            
+            data: function () {
+                return {
+                    //props中的值可以通过this.xxx直接进行获取
+                    count: this.msg
+                }
+            }
+        })
+        //a
+        Vue.component('height-component', {
+            props: ['height'],
+            template: '<div :style="style"></div>', //动态绑定style 属性，一定要用v-bind     
+            data: function () {
+                return {
+
+                }
+            },
+            computed: {
+                style: function () {
+                    return {
+                        height: this.height + 'px',
+                        background: 'red',
+                        widtt: "30px"
+                    }
+                }
+            },
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                height: 0
+            }
+        })
+
+      
+    </script>
+</body>
+
+</html>
+
+

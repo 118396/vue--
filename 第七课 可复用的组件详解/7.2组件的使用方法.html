@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>组件的使用方法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" style="border: 3px solid red">
+        <my-component> </my-component>
+        <app-component></app-component>
+
+        <!-- table 中只能有 tr td tbody 这些元素 -->
+        <table>
+            <!-- <my-component> </my-component> -->
+            <tbody is="my-component"></tbody>
+        </table>
+    </div>
+    <div id="bpp" style="border: 3px solid blue">
+        <my-component> </my-component>
+    </div>
+  
+    <br>
+
+    <script>
+        //    vue.component(tag,{
+        //        template:'<div></div>'
+        //    })
+        Vue.component('my-component', {
+            template: '<div><p>我是一个组件</p></div>'
+        })
+        var app = new Vue({
+            el: '#app',
+            components: { //局部注册
+                'app-component': {
+                    template: '<div><p>我是app局部注册的一个组件</p></div>'
+                }
+            },
+            data: {
+
+            }
+        })
+        var bpp = new Vue({
+            el: '#bpp',
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

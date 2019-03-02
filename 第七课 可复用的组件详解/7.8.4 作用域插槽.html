@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域插值</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+<my-component>
+    <!-- template 模板是不会被渲染的 template里面的内容会渲染  -->
+     <template slot="a" slot-scope="prop">
+        {{prop.text}} <br>
+        {{prop.ss}} 
+        <!-- {{prop.name}}//拿不到name属性 -->
+    </template> 
+    <!-- 2.50版本之前只能在 template 上使用作用域插值
+    2.50 以后任意标签都可以 -->
+    <!-- <p slot="a" slot-scope="prop">
+            {{prop.text}} <br>
+            {{prop.ss}} 
+    </p> -->
+</my-component>
+</div>
+<script>
+   Vue.component('my-component', {
+       template:'<div>\
+       <slot name="a" text="我是子组件的数据" ss="ddfdf"></slot></div>'
+   })
+    var app = new Vue({
+      el:'#app',
+      data:{
+
+      }  
+    })
+</script>
+</body>
+</html>

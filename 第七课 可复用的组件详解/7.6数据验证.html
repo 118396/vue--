@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数据验证</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <type-component :a="a" :b="b" :c="c" :d="d" :f="f" :h="h"></type-component>
+    </div>
+    <script>
+        Vue.component('type-component', {
+            props:{
+                a:String,
+                b:[String,Number],
+                // 必须是布尔类型，指定默认值 true,type（类型）  required（必传和非传项） default(z指定值)
+               c:{
+                   type:Boolean,
+                   default:true,
+               },
+               d:{
+                   type:Number,
+                   //必须传参数（d）
+                   required:true,
+               },
+               e:{
+                   type:Array,
+                   default:function(){
+                       return [111]
+                   }
+               },
+               //自定义一个验证函数
+               f:{
+                   validator:function(value){
+                       return value>2
+                   }
+               },
+               h:{
+                   type:Function,
+
+               }
+            },
+            template: '<div>{{a}} --{{b}}---{{c}}---{{d}}---{{e}}----{{f}}---{{h}}</div>',   // 在这里定义的其作用域是子组件            
+            data: function () {
+                return {
+                    //props中的值可以通过this.xxx直接进行获取
+                    count: this.msg
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: '1',
+                b:2,
+                c:'',
+                d:4,
+                e:[],
+                f:55,
+                h:console.log()
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
+
+

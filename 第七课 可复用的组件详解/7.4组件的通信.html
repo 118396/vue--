@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+</head>
+<body>
+     
+    在父组件里向子组件里传递消息：<br>
+    1.在组件中使用props来从父亲组件接收参数，注意，在props中定义的属性，都可以在          
+    组件中直接使用 
+    <div id="app" style="border: 2px solid chartreuse ;height: 360px;">
+        <h5 style="text-align: center">父组件</h5>
+        <!-- v-bind使用与否的区别 -->
+        <child-component msg="[3,6,9]"></child-component>  //字符串
+        <child-component :msg="[3,6,9]"></child-component> //v-bind会进行识别 数组
+        
+        <hr>使用v-bind进行数据的动态绑定
+        <input type="text" v-model="parentmsg">
+        |<bind-component v-bind:msg="parentmsg"></bind-component>
+    </div>
+    <script>
+        var app = new Vue({// 父组件
+            el:'#app',
+            data:{
+                parentmsg:'今天不开森'
+            },
+            components:{
+                'child-component':{//子组件
+                    props:['msg'],
+                    template:'<div style="border: 2px solid red ;height: 60px;">{{msg.length}}</div>'
+                },
+                'bind-component':{
+                    props:['msg'],
+                    template:'<div style="border: 2px solid red ;height: 60px;">{{msg}}</div>'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
