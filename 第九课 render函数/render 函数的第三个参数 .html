@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>render函数的第三个参数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            //第三个参数可选, 可以是 String | Array ---代表子节点
+            render: function (createElement) {
+                return createElement('div',[
+                    createElement('h2','我是h2标题'),
+                    createElement('h5','我是h5标题')                    
+                ])
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+
+</html>

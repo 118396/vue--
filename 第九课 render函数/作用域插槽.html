@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>作用域插槽在render函数中简单使用</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component>
+            <template scope="prop">
+                <!-- scope 最好写在 template ；scope="prop" 可以拿到传递过来的所以数据-->
+                <!-- prop 自定义的 -->
+                {{prop.text}}
+                {{prop.msg}}
+            </template>
+        </my-component>
+    </div>
+
+    <script>
+        Vue.component('my-component', {
+//相当于<div> <slot> ：text="text"</slot>  </div>            
+            render: function (createElement) {
+                return createElement('div', this.$scopedSlots.default({
+                    //$scopedSlots通过作用域插槽想父组件的插槽中传递数据
+                    text: '我是子组件传递过来的数据',
+                    msg:'你好'
+                }))
+
+            }
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

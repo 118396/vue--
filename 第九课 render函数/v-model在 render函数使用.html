@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>在 render函数中使用props 传递数据</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 将name传递过来 -->
+        <!-- 在input里面输入值的时候，就会将输入的值传递给父组件，在页面上显示。子组件给父组件传递数据 -->
+        <!-- @input 接收数据 showname事件名-->
+        <!-- input 事件执行showname方法接收一个数据，把数据赋值给你想要的内容 -->
+        <!-- <my-component :name="name"  @input="showName"></my-component>   -->
+        <my-component :name="name" v-model="name"></my-component>
+        <!-- v-model 绑定name，做了两步操作：
+        1.self.$emit('input',event.target.value) 接收子组件传递的数据
+        2.赋值给绑定的name -->
+        <br> {{name}}
+    </div>
+
+    <script>
+        Vue.component('my-component', {
+            render: function (createElement) { //render渲染组件
+                var self = this;//在createElememt里面调用this， 指的就是当前的vue实例
+                return createElement('input', {
+                    domProps: {
+                        value: self.name//将接收的name赋值给input框
+                    },
+                    //在render函数里面写事件方法的时候需要将 this 赋值给一个变量，用到vue中的方法使用声明的变量来调用
+                    on: {//input事件
+                        input: function (event) {//默认会把原生的event事件给传递进来
+     
+                            //此处的this指的是什么？
+        //此处的this是window，所以不能直接用this.$emit,需要用 Vue 实例中的this来调用，所以声明var self = this.
+                            self.$emit('input', event.target.value)//event.target.value传递input输入的内容；子组件要向父组件传递信息，在父组件上接收；输入内容的时候，触发input事件
+                        }
+                    }
+                })
+            },
+            props: ['name']//props接收name
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                name: '刘亦菲'
+            },
+            // methods: {
+            //     showName:function(value){//showname方法自动加一个参数（自定义），这里的value就是触发input事件之后传递的值
+            //         this.name = value//把value值赋值给this.name
+            //     }
+            // },
+        })
+    </script>
+</body>
+
+</html>

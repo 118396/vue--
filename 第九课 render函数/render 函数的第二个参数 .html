@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>render函数的第三个参数</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            //第二个参数可选,第二个参数是数据对象
+            render: function (createElement) {
+                return createElement({
+                    template: '<div>花间提壶方大厨</div>'
+                }, {
+                        class: {
+                            foo: true,
+                            baz: false
+                        },
+                        style: {
+                            color: 'red',
+                            fontSize: '16px'
+                        },
+                        //正常的 html 特性
+                        attrs: {
+                            id: "foo",
+                            src: 'http://www.baidu.com'
+                        },
+                        //用来写原生的 DOM 属性
+                        // domProps:{
+                        //     innerHTML:'<div style="color:blue; font-size:20px">我是blue</div>'
+                        // }
+                    })
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+
+        })
+    </script>
+</body>
+
+</html>

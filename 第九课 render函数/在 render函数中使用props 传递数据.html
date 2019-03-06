@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>在 render函数中使用props 传递数据</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="switchshow" >点击切换</button> {{show}}
+        <my-component :show="show">
+
+        </my-component>
+    </div>
+
+    <script>
+        //需求：点击按钮切换图片
+        //通过点击按钮改变 父组件show 的 true false,改变之后把show 传递给子组件，
+        //子组件在 prpps 中接收，接收完以后通过 render函数 构建一个 img 标签，通过this.show来改变src 路径，srcl路径在 attrs中进行设置
+        Vue.component('my-component', {
+            props:['show'],            
+            render:function(createElememt) {
+                var imgsrc
+                if(this.show){
+                    imgsrc = 'img/1.jpg'
+                }else{
+                    imgsrc =  'img/2.jpg'
+                }
+                return createElememt('img',{
+                    attrs:{
+                        src:imgsrc
+                    },
+                    style:{
+                        width:'600px',
+                        height:'600px'
+                    }
+                })
+            },
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                show: true
+            },
+            methods: {
+                switchshow:function(){
+                    this.show= !this.show
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

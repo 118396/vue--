@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>render函数的初步了解</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-component>
+            <p > 灌篮高手</p>
+            <p >我是要成为海贼王的男人</p>
+            <h1>我是h1</h1>
+            <h3 slot="header">《海贼王》</h3>
+            <!-- 插值 -->
+            <h5 slot="footer">《火影忍者》</h5>
+        </my-component>
+    </div>
+
+    <script>
+        //第三个参数存的就是 VNODE(虚拟节点) createElement('header',header),返回的就是VNODE
+        Vue.component('my-component', {
+            
+            render:function(createElement) {
+                var header = this.$slots.header //返回的内容就是 含有vVNODE数组
+                var main = this.$slots.default
+                var footer = this.$slots.footer  
+                return createElement('div',[
+                    createElement('header',header),
+                    createElement('main',main),
+                    createElement('footer',footer)
+                ])              
+            },
+        })
+
+        var app = new Vue({
+            el: '#app',
+
+        })
+    </script>
+</body>
+
+</html>

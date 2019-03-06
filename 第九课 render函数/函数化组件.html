@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数化组件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            border: 2px solid black;
+            width: 500px;
+            height: 250px;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 3px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-component value="haha">
+        </my-component>
+    </div>
+    <script>
+        Vue.component('my-component', {
+            functional: true,    //表示当前vue实例无状态，无实例   
+            //无实例表示没有this这个概念  
+            //context 上下文模块
+            render: function (createElement, context) {
+                return createElement('button',{
+                    on:{
+                        click:function(){
+                            debugger
+                            var a =this
+                            console.log(context)
+                            console.log(context.parent)
+                            // alert(context.parent.msg)
+                            // console.log(context.props.value)
+                            alert( this.value)//undefined
+                        }
+                    }
+                },'点击我学习context')
+            },
+            props: ['value']
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg:'父组件内容'
+            }
+        })
+    </script>
+</body>
+</html>
